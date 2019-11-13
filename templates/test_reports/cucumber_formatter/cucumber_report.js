@@ -8,7 +8,7 @@ var options = {
         scenarioTimestamp: true,
         launchReport: false,
         brandTitle: "Cucumber Report",
-        name: "VHC Enrollment Event Source",
+        name: "Cucumber Results",
         metadata: {
             "Browser": "Chrome",
             "Parallel": "Scenarios"

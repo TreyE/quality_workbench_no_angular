@@ -5,7 +5,7 @@ const result = XunitViewer({
     xml: '',
     ignore: [],
     output: "./rspec_results/index.html",
-    title: "VHC Enrollment Event Source",
+    title: "RSpec Results",
     port: false,
     watch: false,
     color: true,
