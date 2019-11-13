@@ -1,0 +1,7 @@
+--title "<%= project_documentation_title %>"
+--exclude README.md
+-r documentation/PROJECT.md
+app/**/*.rb
+lib/**/*.rb
+-
+documentation/PROJECT.md
