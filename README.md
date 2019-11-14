@@ -107,6 +107,11 @@ ruby build_template.rb --project-documentation-title="EDI Journal Database" --pr
 
 This will create and place a number of files into the 'output' directory.  Copy these files over to your project carefully reviewing any conflicts.
 
+Remember that we also generate "dot" files, so we need to be more verbose with our copying. This means you will most likely need to run with the special no target directory option:
+```
+cp -Rf output/ <your project directory (INCLUDE THE TRAILING SLASH)>
+```
+
 # Test the Workbench
 
 Now that your project is configured, you should be able to test the run of the docker testing command:
