@@ -14,7 +14,7 @@
 #
 
 require 'pundit/rspec'
-<% if has_factory_bot %>
+<% if use_factory_bot %>
 require 'factory_bot_rails'
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods

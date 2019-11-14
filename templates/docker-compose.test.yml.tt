@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: ./.docker/test/app/Dockerfile
+    image: ideacrew/<%= project_database_name %>:test-0.1.0
+    volumes:
+      - .:/app:cached
+      - rails_cache:/app/tmp/cache
+      - packs:/app/public/packs
+    tmpfs:
+      - /tmp
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - BOOTSNAP_CACHE_DIR=/bundle/bootsnap
+      - WEB_CONCURRENCY=1
+      - HISTFILE=/app/log/.bash_history
+      - EDITOR=vi
+    stdin_open: true
+    tty: true
+    command: bash -c "./test_reports/script/docs.sh"
+    ports:
+      - '3000:3000'
+<% if use_mongoid %>
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.2
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+    ports:
+      - 27017:27017
+<% end %>
+
+volumes:
+  bundle:
+  rails_cache:
+  packs:
+<% if use_mongoid %>
+  mongodb:
+  mongodb_config:
+<% end %>
+
+secrets: 
+  master_key:
+    file: ./config/master.key
+  credentials:
+    file: ./config/credentials.yml.enc
+  ssl_cert:
+    file: ../certs/fullchain.pem
+  ssl_key:
+    file: ../certs/privkey.pem

@@ -11,15 +11,25 @@ class TemplateBuilder < Thor
                type: :string,
                desc: "The name of your project, as it should appear in documentation"
 
+  class_option :project_database_name,
+               required: true,
+               type: :string,
+               desc: "The name of your project's database, in_snake_case, like 'my_project'"
+
+  class_option :docker_base_test_image,
+               default: "treyedocker/ubuntu_node_12_ruby_2_6_3_chromedriver:latest",
+               type: :string,
+               desc: "The base docker image for your tests"
+
   class_option :use_mongoid,
                default: true,
                type: :boolean,
                desc: "Will your project use mongoid?"
 
-  class_option :has_factory_bot,
+  class_option :use_factory_bot,
                default: false,
                type: :boolean,
-               desc: "Does your project have FactoryBot?"
+               desc: "Set if you want to use factory bot in your project."
 
   default_command(:generate_templates)
   def self.source_root
@@ -29,6 +39,9 @@ class TemplateBuilder < Thor
   desc :generate_templates, "Generate quality workbench templates for your project."
   def generate_templates
     directory("templates", "output")
+    if use_mongoid
+      directory("mongoid_templates", "output")
+    end
   end
 
   def self.destination_root
@@ -40,12 +53,20 @@ class TemplateBuilder < Thor
       self.options["use_mongoid"]
     end
 
-    def has_factory_bot
-      self.options["has_factory_bot"]
+    def use_factory_bot
+      self.options["use_factory_bot"]
     end
 
     def project_documentation_title
       self.options["project_documentation_title"]
+    end
+
+    def docker_base_test_image
+      self.options["docker_base_test_image"]
+    end
+
+    def project_database_name
+      self.options["project_database_name"]
     end
   end
 end

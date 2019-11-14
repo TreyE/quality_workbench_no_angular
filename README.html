@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Quality Workbench for Rails Projects - Without Angular</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 12px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <h1 id="quality-workbench-for-rails-projects---without-angular">Quality Workbench for Rails Projects - Without Angular</h1>
+<p>This document will walk you through the task of setting up and configuring the quality workbench in your new project.</p>
+<ol>
+<li><a href="#quality-workbench-for-rails-projects---without-angular">Quality Workbench for Rails Projects - Without Angular</a></li>
+<li><a href="#workbench-installation">Workbench Installation</a>
+<ol>
+<li><a href="#update-docker-and-git-ignore-files">Update Docker and Git Ignore Files</a></li>
+<li><a href="#gemfile-additions">Gemfile Additions</a></li>
+<li><a href="#generate-and-install-files">Generate and Install Files</a>
+<ol>
+<li><a href="#run-the-generator">Run the Generator</a></li>
+<li><a href="#copy-over-the-files">Copy Over the Files</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#test-the-workbench">Test the Workbench</a></li>
+</ol>
+<h1 id="workbench-installation">Workbench Installation</h1>
+<p>This section will walk you through the steps needed to get this functionality running in your own project.</p>
+<h2 id="update-docker-and-git-ignore-files">Update Docker and Git Ignore Files</h2>
+<p>To your <code>.dockerignore</code> file you will need to add the following entries:</p>
+<pre><code><div>/.yardoc
+/_yardoc/
+/coverage/
+test_reports/cucumber_formatter/node_modules
+test_reports/cucumber_formatter/cucumber_results/cucumber.html
+test_reports/cucumber_formatter/cucumber_results/cucumber.json
+test_reports/cucumber_formatter/junit/*.xml
+test_reports/junit_formatter/node_modules
+test_reports/junit_formatter/rspec_results/index.html
+test_reports/junit_formatter/rspec_results/rspec.xml
+</div></code></pre>
+<p>To your <code>.gitignore</code> file you will need to add the following entries:</p>
+<pre><code><div>.yardoc
+doc
+/test_reports/junit_formatter/node_modules
+test_reports/junit_formatter/package-lock.json
+rubocop
+test_reports/junit_formatter/rspec_results
+coverage
+test_reports/cucumber_formatter/node_modules
+test_reports/cucumber_formatter/package-lock.json
+test_reports/cucumber_formatter/cucumber_results
+test_reports/cucumber_formatter/junit
+</div></code></pre>
+<h2 id="gemfile-additions">Gemfile Additions</h2>
+<p>You will need to add the following gems to both your <code>development</code> and  <code>test</code>  groups:</p>
+<pre><code class="language-!ruby"><div>group :development, :test do
+  gem 'rspec-rails'
+  gem 'yard'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
+  gem 'rubocop-git'
+end
+</div></code></pre>
+<p>These additional gems will need to be in your <code>test</code> group:</p>
+<pre><code class="language-!ruby"><div>group :test do
+  gem 'rspec_junit_formatter'
+  gem 'simplecov', require: false
+  gem 'simplecov-cobertura'
+  gem 'cucumber'
+  gem 'cucumber-rails', require: false
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'webdrivers'
+end
+</div></code></pre>
+<p><strong>NOTE</strong> If you have mongoid, you will want to also add:</p>
+<pre><code class="language-!ruby"><div>  gem 'database_cleaner'
+</div></code></pre>
+<h2 id="generate-and-install-files">Generate and Install Files</h2>
+<p>In this step, we're going to run the generator to create a set of files we will add to your project.</p>
+<p>As normal, please run your bundle install in this project to make sure everything is in place.</p>
+<p>Then, to get a sense of what arguments you will need to be providing to the generator and how it works, run:</p>
+<pre><code><div>ruby build_template.rb help
+</div></code></pre>
+<p>This will enumerate all the arguments and what you need to provide.</p>
+<h3 id="run-the-generator">Run the Generator</h3>
+<p>After reviewing the arguments and what you need to provide from the usage, run the template generator:</p>
+<pre><code><div>ruby build_template.rb &lt;your arguments&gt;
+</div></code></pre>
+<p>An example would be, for a project named EDI Journal Database:</p>
+<pre><code><div>ruby build_template.rb --project-documentation-title=&quot;EDI Journal Database&quot; --project-database-name=&quot;edi_journal_database&quot; --use-factory-bot
+</div></code></pre>
+<h3 id="copy-over-the-files">Copy Over the Files</h3>
+<p>This will create and place a number of files into the 'output' directory.  Copy these files over to your project carefully reviewing any conflicts.</p>
+<h1 id="test-the-workbench">Test the Workbench</h1>
+<p>Now that your project is configured, you should be able to test the run of the docker testing command:</p>
+<pre><code><div>docker compose -f ./docker-compose.test.yml build &amp;&amp; docker compose -f ./docker-compose.test.yml up
+</div></code></pre>
+<p>The output of this should be a bunch of test output, and you should be  getting a file in your root directory called <code>report.zip</code>.  Pop open  that file and look at <code>doc/index.html</code> and browse around.</p>
+<p>Once it works, don't forget to add the new files to git!</p>
+
+    </body>
+    </html>
