@@ -111,6 +111,10 @@ end
 <p>Remember that we also generate &quot;dot&quot; files, so we need to be more verbose with our copying. This means you will most likely need to run with the special no target directory option:</p>
 <pre><code><div>cp -Rf output/ &lt;your project directory (INCLUDE THE TRAILING SLASH)&gt;
 </div></code></pre>
+<p>You will need to make some of the new commands executable:</p>
+<pre><code><div>cd &lt;your project directory&gt;
+chmod u+x ./test_reports/script/ci.sh ./test_reports/script/docs.sh
+</div></code></pre>
 <h1 id="test-the-workbench">Test the Workbench</h1>
 <p>Now that your project is configured, you should be able to test the run of the docker testing command:</p>
 <pre><code><div>docker-compose -f ./docker-compose.test.yml build &amp;&amp; docker-compose -f ./docker-compose.test.yml up

@@ -112,6 +112,12 @@ Remember that we also generate "dot" files, so we need to be more verbose with o
 cp -Rf output/ <your project directory (INCLUDE THE TRAILING SLASH)>
 ```
 
+You will need to make some of the new commands executable:
+```
+cd <your project directory>
+chmod u+x ./test_reports/script/ci.sh ./test_reports/script/docs.sh
+```
+
 # Test the Workbench
 
 Now that your project is configured, you should be able to test the run of the docker testing command:
