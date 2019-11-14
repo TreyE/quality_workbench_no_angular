@@ -113,7 +113,7 @@ end
 </div></code></pre>
 <h1 id="test-the-workbench">Test the Workbench</h1>
 <p>Now that your project is configured, you should be able to test the run of the docker testing command:</p>
-<pre><code><div>docker-compose -f ./docker-compose.test.yml build &amp;&amp; docker compose -f ./docker-compose.test.yml up
+<pre><code><div>docker-compose -f ./docker-compose.test.yml build &amp;&amp; docker-compose -f ./docker-compose.test.yml up
 </div></code></pre>
 <p>The output of this should be a bunch of test output, and you should be  getting a file in your root directory called <code>report.zip</code>.  Pop open  that file and look at <code>doc/index.html</code> and browse around.</p>
 <p>Once it works, don't forget to add the new files to git!
