@@ -111,7 +111,7 @@ This will create and place a number of files into the 'output' directory.  Copy 
 
 Now that your project is configured, you should be able to test the run of the docker testing command:
 ```
-docker compose -f ./docker-compose.test.yml build && docker compose -f ./docker-compose.test.yml up
+docker-compose -f ./docker-compose.test.yml build && docker compose -f ./docker-compose.test.yml up
 ```
 
 The output of this should be a bunch of test output, and you should be  getting a file in your root directory called `report.zip`.  Pop open  that file and look at `doc/index.html` and browse around.
