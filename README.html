@@ -65,7 +65,7 @@ coverage
 test_reports/cucumber_formatter/node_modules
 test_reports/cucumber_formatter/package-lock.json
 test_reports/cucumber_formatter/cucumber_results
-test_reports/cucumber_formatter/junit
+test_reports/cucumber_formatter/junit/*.xml
 </div></code></pre>
 <h2 id="gemfile-additions">Gemfile Additions</h2>
 <p>You will need to add the following gems to both your <code>development</code> and  <code>test</code>  groups:</p>
@@ -113,7 +113,8 @@ end
 <pre><code><div>docker-compose -f ./docker-compose.test.yml build &amp;&amp; docker compose -f ./docker-compose.test.yml up
 </div></code></pre>
 <p>The output of this should be a bunch of test output, and you should be  getting a file in your root directory called <code>report.zip</code>.  Pop open  that file and look at <code>doc/index.html</code> and browse around.</p>
-<p>Once it works, don't forget to add the new files to git!</p>
+<p>Once it works, don't forget to add the new files to git!
+<strong>Make double sure to add all the .gitkeep files, even if they are in ignored directories</strong></p>
 
     </body>
     </html>

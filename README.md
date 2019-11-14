@@ -43,7 +43,7 @@ coverage
 test_reports/cucumber_formatter/node_modules
 test_reports/cucumber_formatter/package-lock.json
 test_reports/cucumber_formatter/cucumber_results
-test_reports/cucumber_formatter/junit
+test_reports/cucumber_formatter/junit/*.xml
 ```
 
 ## Gemfile Additions
@@ -117,3 +117,4 @@ docker-compose -f ./docker-compose.test.yml build && docker compose -f ./docker-
 The output of this should be a bunch of test output, and you should be  getting a file in your root directory called `report.zip`.  Pop open  that file and look at `doc/index.html` and browse around.
 
 Once it works, don't forget to add the new files to git!
+**Make double sure to add all the .gitkeep files, even if they are in ignored directories**
